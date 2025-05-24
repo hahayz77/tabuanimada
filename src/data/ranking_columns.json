@@ -1,24 +1,22 @@
-{
-    "columns": [
-        {
-            "key": "name",
-            "label": "Nome do jogador"
-        },
-        {
-            "key": "response_time",
-            "label": "Tempo Resposta"
-        },
-        {
-            "key": "questions",
-            "label": "Número de Perguntas"
-        },
-        {
-            "key": "correct_answers",
-            "label": "Acertos"
-        },
-        {
-            "key": "percentage",
-            "label": "%"
-        }
-    ]
-}
+[
+    {
+        "key": "name",
+        "label": "Nome do jogador"
+    },
+    {
+        "key": "response_time",
+        "label": "Tempo Resposta"
+    },
+    {
+        "key": "questions",
+        "label": "Número de Perguntas"
+    },
+    {
+        "key": "correct_answers",
+        "label": "Acertos"
+    },
+    {
+        "key": "percentage",
+        "label": "%"
+    }
+]

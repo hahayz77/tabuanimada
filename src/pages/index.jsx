@@ -3,7 +3,7 @@ import Link from "next/link"
 import { FaGamepad } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa6";
 
-export default function Home() {
+export default function HomePage() {
     return (
         <div className="flex flex-col items-center justify-center h-screen gap-6">
             <h1 className="text-7xl font-mono font-extrabold text-emerald-300">

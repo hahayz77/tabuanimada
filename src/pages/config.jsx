@@ -11,6 +11,7 @@ const InputName = () => {
         <Input
             type="text"
             label="Nome do Jogador"
+            aria-label="Nome do Jogador"
             id="playerName"
             value={playerName}
             onChange={(e) => setPlayerName(e.target.value)}
@@ -27,6 +28,7 @@ const SelectGameMode = () => {
         <Select
             id="gameMode"
             label="Modo de Jogo"
+            aria-label="Modo de Jogo"
             value={gameMode}
             onChange={(e) => setGameMode(e.target.value)}
         >
@@ -43,6 +45,7 @@ const InputAnswerTime = () => {
     return (
         <NumberInput
             label="Tempo por Resposta (segundos)"
+            aria-label="Tempo por Resposta (segundos)"
             placeholder="Digite o tempo"
             value={answerTime}
             minValue={1}
@@ -58,6 +61,7 @@ const InputNumberOfQuestions = () => {
     return (
         <NumberInput
             label="Número de Perguntas da Partida"
+            aria-label="Número de Perguntas da Partida"
             placeholder="Digite o n mero de perguntas"
             value={numberOfQuestions}
             minValue={1}
@@ -67,7 +71,6 @@ const InputNumberOfQuestions = () => {
 }
 
 const FirstPartConfiguration = () => {
-
     const handleStartGame = () => {
         // Handler vazio por enquanto
         console.log("Iniciar jogo")
@@ -98,22 +101,20 @@ const TableOptionItem = ({ number }) => {
             >
                 <span className="font-medium">{number}</span>
             </Checkbox>
-
-            {/* Slider para frequência do segundo termo */}
             <div className="flex-1">
                 <Slider
                     size="md"
                     step={10}
                     minValue={0}
                     maxValue={100}
+                    // label="Frequência do segundo termo"
+                    aria-label="Frequência do segundo termo"
                     // value={currentFrequency}
                     className="max-w-md"
                     color="primary"
                     showTooltip={false}
                 />
             </div>
-
-            {/* Porcentagem */}
             <span className="text-primary font-medium min-w-[40px] text-right">
                 {/* {currentFrequency}% */}
             </span>
@@ -122,10 +123,7 @@ const TableOptionItem = ({ number }) => {
 }
 
 const SecondPartConfiguration = () => {
-    // Seletor otimizado para o texto de referência com cache
     const referenceText = useConfigStore(state => state.getReferenceText())
-
-    // Memoiza a lista de números para evitar recriação do array
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     
     return (
@@ -146,8 +144,6 @@ const SecondPartConfiguration = () => {
                             <TableOptionItem key={number} number={number} />
                         ))}
                     </div>
-
-                    {/* Texto de referência */}
                     <div className="mt-6 p-4 bg-default-100 rounded-lg">
                         <p className="text-default-600 text-sm whitespace-pre-line">
                             {referenceText}
@@ -159,7 +155,7 @@ const SecondPartConfiguration = () => {
     )
 }
 
-const Config = () => {
+export default function ConfigPage() {
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <h2 className="text-2xl font-bold p-6">Configurações da Partida</h2>
@@ -171,5 +167,3 @@ const Config = () => {
         </div>
     )
 }
-
-export default Config

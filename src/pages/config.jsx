@@ -14,6 +14,8 @@ const InputName = () => {
             aria-label="Nome do Jogador"
             id="playerName"
             value={playerName}
+            color="secondary"
+            variant="bordered"
             onChange={(e) => setPlayerName(e.target.value)}
             placeholder="Digite seu nome"
         />
@@ -30,6 +32,8 @@ const SelectGameMode = () => {
             label="Modo de Jogo"
             aria-label="Modo de Jogo"
             value={gameMode}
+            color="secondary"
+            variant="bordered"
             onChange={(e) => setGameMode(e.target.value)}
         >
             <SelectItem value="tabuada">Tabuada</SelectItem>
@@ -49,6 +53,8 @@ const InputAnswerTime = () => {
             placeholder="Digite o tempo"
             value={answerTime}
             minValue={1}
+            color="secondary"
+            variant="bordered"
             onValueChange={setAnswerTime}
         />
     )
@@ -65,6 +71,8 @@ const InputNumberOfQuestions = () => {
             placeholder="Digite o n mero de perguntas"
             value={numberOfQuestions}
             minValue={1}
+            color="secondary"
+            variant="bordered"
             onValueChange={setNumberOfQuestions}
         />
     )
@@ -96,7 +104,7 @@ const TableOptionItem = ({ number }) => {
             <Checkbox
                 // isSelected={option?.firstTermEnabled || false}
                 // onValueChange={handleToggle}
-                color="warning"
+                color="secondary"
                 size="lg"
             >
                 <span className="font-medium">{number}</span>
@@ -111,7 +119,7 @@ const TableOptionItem = ({ number }) => {
                     aria-label="Frequência do segundo termo"
                     // value={currentFrequency}
                     className="max-w-md"
-                    color="primary"
+                    color="secondary"
                     showTooltip={false}
                 />
             </div>
@@ -128,7 +136,7 @@ const SecondPartConfiguration = () => {
     
     return (
         <div className="w-full max-w-md">
-            <Card>
+            <Card className="bg-purple-950/20 p-2 border-solid border-2 border-neutral-700">
                 <CardHeader>
                     <h2 className="text-2xl font-bold text-center">
                         Modo Tabuada
@@ -157,8 +165,8 @@ const SecondPartConfiguration = () => {
 
 export default function ConfigPage() {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h2 className="text-2xl font-bold p-6">Configurações da Partida</h2>
+        <div className="flex flex-col items-center justify-center min-h-screen py-8">
+            <h2 className="text-3xl font-bold p-6">Configurações da Partida</h2>
             <ReturnBtn />
             <div className="grid_configs flex gap-8">
                 <FirstPartConfiguration />

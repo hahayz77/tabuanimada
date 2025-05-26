@@ -17,7 +17,7 @@ export default function HomePage() {
                     href="/config"
                     size="lg"
                     color="success"
-                    className="animate-bounce hover:animate-none hover:scale-110 hover:-translate-y-2"
+                    className="animate-bounce hover:animate-none hover:scale-110 hover:-translate-y-2 text-white"
                     startContent={<FaGamepad className="text-xl" />}
                 >
                     Play
@@ -27,7 +27,7 @@ export default function HomePage() {
                     href="/ranking"
                     size="lg"
                     color="warning"
-                    className="animate-bounce animation-delay-320 hover:animate-none hover:scale-110 hover:-translate-y-2"
+                    className="animate-bounce animation-delay-320 hover:animate-none hover:scale-110 hover:-translate-y-2 text-white"
                     startContent={<FaMedal className="text-lg" />}
                 >
                     Histórico

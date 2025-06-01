@@ -85,7 +85,6 @@ const FirstTermTableItem = ({ id, number, firstTermEnabled }) => {
         <div className="first_terms flex justify-center items-center py-2">
             <Checkbox
                 isSelected={firstTermEnabled}
-                // onValueChange={handleToggle}
                 color="success"
                 size="lg"
                 label={`Tabuada do ${number}`}
@@ -98,8 +97,6 @@ const FirstTermTableItem = ({ id, number, firstTermEnabled }) => {
 
 const FirstTermsConfiguration = () => {
     const tableOptions = useConfigStore(state => state.tableOptions)
-    const toggleFirstTerm = useConfigStore(state => state.toggleFirstTerm)
-    const changeSecondTermFrequency = useConfigStore(state => state.changeSecondTermFrequency)
 
     return (
         <Card className="bg-transparent p-2 border-solid border-2 border-neutral-700">
@@ -144,7 +141,6 @@ const TableOptionItem = ({ number }) => {
                     step={10}
                     minValue={0}
                     maxValue={100}
-                    // label="Frequência do segundo termo"
                     aria-label="Frequência do segundo termo"
                     value={currentFrequency}
                     className="max-w-md"

@@ -19,3 +19,7 @@ body {
   background: var(--background);
   font-family: monospace, Helvetica, sans-serif;
 }
+
+.toaster {
+  @apply bg-neutral-900;
+}

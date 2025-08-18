@@ -180,7 +180,29 @@ const useConfigStore = create((set, get) => {
                 tableOptions: updatedTableOptions,
                 referenceTextCache: null,
             }
-        })
+        }),
+
+        randomMode: () => set(state => ({
+            tableOptions: state.tableOptions.map(option => ({ ...option, secondTermFrequency: 50 })),
+            referenceTextCache: null,
+        })),
+
+        hardMode: () => set(state => {
+            console.log("Hard mode selected - not implemented yet")
+            return { ...state }
+        }),
+
+        areConfigsComplete: () => {
+            const { playerName, tableOptions, numberOfQuestions, answerTime } = get()
+
+            const isPlayerNameSet = playerName && playerName.trim() !== ""
+            // Verifica se pelo menos uma tabuada está habilitada para o primeiro termo
+            const areAnyFirstTermsEnabled = tableOptions.some(opt => opt.firstTermEnabled)
+            // Verifica se as configurações numéricas básicas são válidas
+            const areGameSettingsValid = numberOfQuestions > 0 && answerTime > 0
+
+            return isPlayerNameSet && areAnyFirstTermsEnabled && areGameSettingsValid
+        },
     }
 })
 

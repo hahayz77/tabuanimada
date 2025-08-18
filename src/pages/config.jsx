@@ -2,6 +2,10 @@ import ReturnBtn from "@/components/buttons/ReturnBtn"
 import { Button, Input, Select, Checkbox, Slider, SelectItem, NumberInput, Card, CardBody, CardHeader, table } from "@heroui/react"
 import Link from "next/link"
 import useConfigStore from "@/store/configStore"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import { FaBaby, FaGamepad, FaRobot, FaTools } from "react-icons/fa"
+import toast from "react-hot-toast"
 
 const InputName = () => {
     const playerName = useConfigStore(state => state.playerName)
@@ -162,8 +166,8 @@ const ReferenceTextComponent = () => {
     return (
         <div div className="mt-6 rounded-lg w-xl p-4 border-solid border-2 border-neutral-700" >
             <ul className="text-default-600 text-sm whitespace-pre-line">
-                {referenceText?.map(item => (
-                    <li>- {item}</li>
+                {referenceText?.map((item, index) => (
+                    <li key={index}>- {item}</li>
                 ))}
             </ul>
         </div>
@@ -191,30 +195,126 @@ const SecondPartConfiguration = () => {
     )
 }
 
-export default function ConfigPage() {
+const DifficultySelection = ({ onCustomClick }) => {
+    const { sequenceMode, randomMode, hardMode, getReferenceText } = useConfigStore.getState()
 
-    const resetConfig = useConfigStore(state => state.resetConfig)
-    const sequenceMode = useConfigStore(state => state.sequenceMode)
-    const handleStartGame = () => {
-        // Handler vazio por enquanto
-        console.log("Iniciar jogo")
+    const showToast = () => {
+        const text = getReferenceText().join('\n')
+        toast.success(text)
     }
+
+    const handleEasyMode = () => {
+        sequenceMode()
+        showToast()
+    }
+
+    const handleMediumMode = () => {
+        randomMode()
+        showToast()
+    }
+
+    const handleHardMode = () => {
+        hardMode()
+        toast.error("Modo Difícil ainda não implementado!")
+    }
+
+    return (
+        <div className="flex flex-col items-center gap-4 mb-8">
+             <h2 className="text-3xl font-bold p-4">Selecione o Modo de Jogo</h2>
+            <div className="grid grid-cols-2 gap-4">
+                <Button
+                    size="lg"
+                    color="success"
+                    variant="solid"
+                    className="hover:scale-110 hover:-translate-y-2 text-white w-64 h-24 text-2xl"
+                    startContent={<FaBaby className="text-3xl" />}
+                    onPress={handleEasyMode}
+                >
+                    Fácil
+                </Button>
+                <Button
+                    size="lg"
+                    color="warning"
+                    variant="solid"
+                    className="hover:scale-110 hover:-translate-y-2 text-white w-64 h-24 text-2xl"
+                    startContent={<FaRobot className="text-3xl" />}
+                    onPress={handleMediumMode}
+                >
+                    Médio
+                </Button>
+                <Button
+                    size="lg"
+                    color="danger"
+                    variant="solid"
+                    className="hover:scale-110 hover:-translate-y-2 text-white w-64 h-24 text-2xl"
+                    startContent={<FaGamepad className="text-3xl" />}
+                    onPress={handleHardMode}
+                >
+                    Difícil
+                </Button>
+                <Button
+                    size="lg"
+                    color="primary"
+                    variant="solid"
+                    className="hover:scale-110 hover:-translate-y-2 text-white w-64 h-24 text-2xl"
+                    startContent={<FaTools className="text-3xl" />}
+                    onPress={onCustomClick}
+                >
+                    Customizado
+                </Button>
+            </div>
+        </div>
+    )
+}
+
+
+export default function ConfigPage() {
+    const [isCustomMode, setIsCustomMode] = useState(false)
+    const router = useRouter()
+    const { resetConfig, sequenceMode, areConfigsComplete } = useConfigStore.getState()
+
+    const handleStartGame = () => {
+        if (areConfigsComplete()) {
+            router.push("/play")
+        } else {
+            alert("Por favor, preencha seu nome, o número de perguntas e selecione pelo menos uma tabuada para começar!")
+        }
+    }
+
+    if (isCustomMode) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen py-8">
+                <ReturnBtn />
+                <h2 className="text-3xl font-bold p-4">Configurações da Partida</h2>
+                <div className="header pb-6">
+                    <p className="text-lg mb-6 flex justify-center">Modo Tabuada</p>
+                    <ReferenceTextComponent />
+                </div>
+                <div className="grid_configs flex gap-8">
+                    <FirstPartConfiguration />
+                    <SecondPartConfiguration />
+                </div>
+                <div className="flex justify-between mt-6 gap-8">
+                    <Button onPress={() => setIsCustomMode(false)} color="danger" variant="flat">Voltar</Button>
+                    <Button color="primary" variant="flat" onPress={sequenceMode}>Modo Sequência</Button>
+                    <Button color="warning" variant="flat" onPress={resetConfig}>Resetar Configuração</Button>
+                    <Button color="success" variant="solid" onPress={handleStartGame}> Iniciar </Button>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-8">
             <ReturnBtn />
-            <h2 className="text-3xl font-bold p-4">Configurações da Partida</h2>
-            <div className="header pb-6">
-                <p className="text-lg mb-6 flex justify-center">Modo Tabuada</p>
-                <ReferenceTextComponent />
+            <DifficultySelection onCustomClick={() => setIsCustomMode(true)} />
+            <div className="w-full max-w-md space-y-4">
+                <InputName />
+                <InputNumberOfQuestions />
+                <FirstTermsConfiguration />
             </div>
-            <div className="grid_configs flex gap-8">
-                <FirstPartConfiguration />
-                <SecondPartConfiguration />
-            </div>
-            <div className="flex justify-between mt-6 gap-8">
+             <div className="flex justify-between mt-6 gap-8">
                 <Button as={Link} href="/" color="danger" variant="flat">Cancelar</Button>
-                <Button color="primary" variant="flat" onPress={sequenceMode}>Modo Sequência</Button>
-                <Button color="warning" variant="flat" onPress={resetConfig}>Resetar Configuração</Button>
                 <Button color="success" variant="solid" onPress={handleStartGame}> Iniciar </Button>
             </div>
         </div>

@@ -277,7 +277,7 @@ export default function ConfigPage() {
         if (areConfigsComplete()) {
             router.push("/play")
         } else {
-            alert("Por favor, preencha seu nome, o número de perguntas e selecione pelo menos uma tabuada para começar!")
+            toast.error("Por favor, preencha seu nome, o número de perguntas e selecione pelo menos uma tabuada para começar!")
         }
     }
 

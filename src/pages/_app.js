@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
 import { HeroUIProvider } from "@heroui/react"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { Toaster } from 'react-hot-toast';
